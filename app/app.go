@@ -1,4 +1,4 @@
-package main
+package app
 
 import (
 	"github.com/outagelab/outagelab/config"
@@ -12,24 +12,16 @@ import (
 	"github.com/outagelab/outagelab/services/authservice"
 	"github.com/outagelab/outagelab/services/datapageservice"
 	"github.com/outagelab/outagelab/services/userservice"
-
-	"gopkg.in/DataDog/dd-trace-go.v1/ddtrace/tracer"
 )
 
-func main() {
-	config := config.New()
-
-	tracer.Start()
-	defer tracer.Stop()
-
-	httpServer, migrator := buildApp(config)
-
-	migrator.Migrate()
-
-	httpServer.Start()
+type OutageLabApp struct {
+	httpServer *httpserver.HttpServer
+	migrator   *migrator.Migrator
 }
 
-func buildApp(config *config.Config) (*httpserver.HttpServer, *migrator.Migrator) {
+func New() *OutageLabApp {
+	config := config.New()
+
 	db := db.New(config.Db)
 
 	accountRepo := accountrepo.New(db)
@@ -44,5 +36,13 @@ func buildApp(config *config.Config) (*httpserver.HttpServer, *migrator.Migrator
 	httpServer := httpserver.New(accountService, datapageService, authService)
 	migrator := migrator.New(db.ToSqlDB())
 
-	return httpServer, migrator
+	return &OutageLabApp{
+		httpServer: httpServer,
+		migrator:   migrator,
+	}
+}
+
+func (a *OutageLabApp) Start() {
+	a.migrator.Migrate()
+	a.httpServer.Start()
 }

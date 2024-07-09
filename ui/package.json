@@ -9,7 +9,7 @@
     "preview": "vite preview",
     "test:unit": "vitest",
     "test:e2e": "playwright test",
-    "build-only": "vite build --outDir ../backend/dist --emptyOutDir",
+    "build-only": "vite build --emptyOutDir",
     "type-check": "vue-tsc --build --force",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
     "format": "prettier --write src/"

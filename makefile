@@ -3,6 +3,9 @@
 run:
 	go run cmd/api/main.go
 
+build:
+	cd ui && yarn build-only
+
 db:
 	-psql -d postgres -c "CREATE DATABASE outagelab"
 	go run cmd/db-migrate/main.go -dir ./db/migrations postgres "user=postgres dbname=outagelab sslmode=disable" up
