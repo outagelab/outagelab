@@ -19,8 +19,8 @@ export interface Rule {
   enabled: boolean
   type: 'send-http'
   host: string
-  status: number
-  duration: number
+  status: number | null
+  duration: number | null
 }
 
 export interface AccountApiKey {

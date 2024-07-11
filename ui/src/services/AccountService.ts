@@ -12,13 +12,17 @@ export default class AccountService {
   }
 
   async updateAccount(account: Account) {
-    await fetch(`/api/account`, {
+    const response = await fetch(`/api/account`, {
       method: 'PUT',
       headers: {
         Authorization: `Bearer ${localStorage.token}`
       },
       body: JSON.stringify(account)
     })
+
+    if (response.status !== 200) {
+      throw new Error('request failed with status ' + response.status)
+    }
   }
 
   async login(googleToken: string): Promise<string> {

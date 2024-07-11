@@ -1,4 +1,4 @@
-package app
+package outagelab
 
 import (
 	"github.com/outagelab/outagelab/internal/config"
@@ -19,7 +19,7 @@ type OutageLabApp struct {
 	migrator   *migrator.Migrator
 }
 
-func New() *OutageLabApp {
+func NewApp() *OutageLabApp {
 	config := config.New()
 
 	db := db.New(config.Db)

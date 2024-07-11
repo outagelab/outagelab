@@ -34,5 +34,6 @@ playwright-report/
 
 __debug_*
 secrets.*.y*ml
+.env
 
 !/ui/dist/

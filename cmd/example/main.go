@@ -1,10 +1,10 @@
 package main
 
 import (
-	"github.com/outagelab/outagelab/internal/app"
+	"github.com/outagelab/outagelab"
 )
 
 func main() {
-	olapp := app.New()
-	olapp.Start()
+	app := outagelab.NewApp()
+	app.Start()
 }

@@ -30,13 +30,13 @@ func (hs *HttpServer) router() *gin.Engine {
 	router.POST("/api/datapage", hs.handleGenerateDatapageDeprecated)
 	router.POST("/api/v1/datapage", hs.handleGenerateDatapage)
 
+	indexFile, _ := ui.Dist.ReadFile("dist/index.html")
 	router.NoRoute(func(c *gin.Context) {
 		path := c.Request.URL.Path + "/"
 		if c.Request.Method != "GET" || strings.HasPrefix(path, "/api/") || strings.HasPrefix(path, "/assets/") {
 			c.AbortWithStatus(404)
 		} else {
-			b, _ := ui.Dist.ReadFile("dist/index.html")
-			c.Data(http.StatusOK, "text/html; charset=UTF-8", b)
+			c.Data(http.StatusOK, "text/html; charset=UTF-8", indexFile)
 		}
 	})
 
