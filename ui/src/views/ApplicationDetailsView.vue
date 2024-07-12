@@ -6,9 +6,9 @@ import { useRoute } from 'vue-router'
 
 const accountService = new AccountService()
 
-
 const route = useRoute()
 
+let initAccountJSON = ""
 let account = ref<Account>()
 const application = computed((): Application | undefined => {
   return account.value?.applications?.find(x => x.id === route.params.id)
@@ -20,6 +20,10 @@ const rules = computed((): Rule[] | undefined => {
   return application.value?.rules
 })
 
+const dirty = computed((): boolean => {
+  return initAccountJSON !== JSON.stringify(account.value)
+})
+
 let showConfirmation = ref<boolean>()
 let showError = ref<string>()
 
@@ -27,6 +31,7 @@ onBeforeMount(refreshPage)
 
 async function refreshPage() {
   account.value = await accountService.getAccount()
+  initAccountJSON = JSON.stringify(account.value)
 }
 
 async function updatePage() {
@@ -110,7 +115,7 @@ const form = ref<any>(null)
 <template>
   <div class="d-flex align-center">
     <h1>{{ application?.id }}</h1>
-    <v-btn @click="updatePage" class="ml-auto" color="primary">Save</v-btn>
+    <v-btn @click="updatePage" class="ml-auto" color="primary" :disabled="!dirty">Update</v-btn>
   </div>
   <v-form ref="form">
     <div class="d-flex align-center ga-3 mt-8">
