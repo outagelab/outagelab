@@ -30,7 +30,7 @@ func (hs *HttpServer) router() *gin.Engine {
 	router.POST("/api/datapage", hs.handleGenerateDatapageDeprecated)
 	router.POST("/api/v1/datapage", hs.handleGenerateDatapage)
 
-	indexFile, _ := ui.Dist.ReadFile("dist/index.html")
+	indexFile := hs.buildIndexHtml()
 	router.NoRoute(func(c *gin.Context) {
 		path := c.Request.URL.Path + "/"
 		if c.Request.Method != "GET" || strings.HasPrefix(path, "/api/") || strings.HasPrefix(path, "/assets/") {
@@ -41,4 +41,19 @@ func (hs *HttpServer) router() *gin.Engine {
 	})
 
 	return router
+}
+
+func (hs *HttpServer) buildIndexHtml() []byte {
+	indexFile, _ := ui.Dist.ReadFile("dist/index.html")
+	if len(hs.customIndexHeaders) == 0 {
+		return indexFile
+	}
+
+	customIndexFile := strings.Replace(
+		string(indexFile),
+		"</head>",
+		string(hs.customIndexHeaders)+"</head>",
+		1,
+	)
+	return []byte(customIndexFile)
 }

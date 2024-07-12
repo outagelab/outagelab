@@ -5,6 +5,6 @@ import (
 )
 
 func main() {
-	app := outagelab.NewApp()
+	app := outagelab.NewApp(nil)
 	app.Start()
 }

@@ -19,7 +19,15 @@ type OutageLabApp struct {
 	migrator   *migrator.Migrator
 }
 
-func NewApp() *OutageLabApp {
+type AppOptions struct {
+	CustomIndexHead []byte
+}
+
+func NewApp(options *AppOptions) *OutageLabApp {
+	if options == nil {
+		options = &AppOptions{}
+	}
+
 	config := config.New()
 
 	db := db.New(config.Db)
@@ -33,7 +41,7 @@ func NewApp() *OutageLabApp {
 	userService := userservice.New(userRepo)
 	authService := authservice.New(userService, accountService)
 
-	httpServer := httpserver.New(accountService, datapageService, authService)
+	httpServer := httpserver.New(accountService, datapageService, authService, options.CustomIndexHead)
 	migrator := migrator.New(db.ToSqlDB())
 
 	return &OutageLabApp{

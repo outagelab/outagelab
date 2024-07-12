@@ -1,16 +1,23 @@
 package httpserver
 
 type HttpServer struct {
-	accountService  accountService
-	datapageService datapageService
-	authService     authService
+	accountService     accountService
+	datapageService    datapageService
+	authService        authService
+	customIndexHeaders []byte
 }
 
-func New(accountService accountService, datapageService datapageService, authService authService) *HttpServer {
+func New(
+	accountService accountService,
+	datapageService datapageService,
+	authService authService,
+	customIndexHeaders []byte,
+) *HttpServer {
 	return &HttpServer{
-		accountService:  accountService,
-		datapageService: datapageService,
-		authService:     authService,
+		accountService:     accountService,
+		datapageService:    datapageService,
+		authService:        authService,
+		customIndexHeaders: customIndexHeaders,
 	}
 }
 
