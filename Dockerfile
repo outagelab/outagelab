@@ -8,7 +8,7 @@ RUN go mod download
 
 COPY ./ ./
 
-RUN CGO_ENABLED=0 GOOS=linux go build -o dist/outagelab cmd/api/main.go
+RUN CGO_ENABLED=0 GOOS=linux go build -o dist/outagelab app.go
 
 # frontend
 FROM node:20-alpine3.19 AS frontend

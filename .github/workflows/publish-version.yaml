@@ -1,0 +1,21 @@
+name: Publish version
+on:
+  push:
+    branches:
+      - main
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - run: |
+          TAG=$(cat version)
+          if git show-ref --tags --verify --quiet "refs/tags/${TAG}"; then
+            echo Tag $TAG already exists
+            exit
+          fi
+
+          git tag $TAG HEAD
+          git push origin tag $TAG
