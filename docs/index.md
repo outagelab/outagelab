@@ -7,8 +7,8 @@ hero:
   text: |
     Simulate Outages,
     Validate Impact,
-    Improve Readiness
-  tagline: A UI-driven platform to remotely inject application errors, for testing resilience and observability E2E
+    Improve Resilience
+  tagline: A UI-driven platform to remotely inject application errors to test resilience and observability E2E
   actions:
     - theme: brand
       text: Learn more
@@ -23,5 +23,5 @@ features:
   - title: Controlled chaos
     details: Avoid business disruption by scoping outages to specific environments, instances, or users
   - title: Developer first
-    details: Open source, permissively licensed, and supports multiple programming languages
+    details: Open source, permissively licensed, with support for multiple programming languages
 ---
