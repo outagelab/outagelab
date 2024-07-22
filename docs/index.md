@@ -8,7 +8,7 @@ hero:
     Simulate Outages,
     Validate Impact,
     Improve Resilience
-  tagline: A UI-driven platform to remotely inject application errors to test resilience and observability E2E
+  tagline: A UI-driven platform providing remote error injection to test resilience and observability in live services
   actions:
     - theme: brand
       text: Learn more
