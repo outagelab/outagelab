@@ -1,10 +1,13 @@
-.PHONY: test
+.PHONY: test docs
 
 run:
 	go run cmd/api/main.go
 
 dev:
 	cd ui && yarn dev
+
+docs:
+	cd docs && yarn && yarn dev
 
 build:
 	cd ui && yarn build-only

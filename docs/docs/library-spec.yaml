@@ -1,0 +1,12 @@
+logs:
+
+errors:
+  missing-api-key:
+    message: outagelab api key missing, skipping initialization
+    support: [go]
+  invalid-api-key:
+    message: unauthorized outagelab request, invalid api key
+    support: [go]
+  initialization-failure:
+    message: "outagelab initialization skipped due to error: {error}"
+    support: [go]

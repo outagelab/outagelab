@@ -7,8 +7,8 @@ hero:
   text: |
     Simulate Outages,
     Validate Impact,
-    Build Resilience
-  tagline: Remotely inject application errors in pre-prod to test resilience, observability, and incident response E2E
+    Improve Readiness
+  tagline: A UI-driven platform to remotely inject application errors, for testing resilience and observability E2E
   actions:
     - theme: brand
       text: Learn more
@@ -19,9 +19,9 @@ hero:
 
 features:
   - title: Move fast and break things
-    details: The fastest way for developers to start chaos testing. Integrates in application code as an installed package.
+    details: Easy to get started with, installs in code as a package and has no infrastructure requirements
   - title: Controlled chaos
-    details: Avoid disruption in your test environments with narrowly scoped outage conditions, including filtering to specific users.
-  - title: Open and free
-    details: Open source and free to self-host. Or jump start with a free personal account on our managed service.
+    details: Avoid business disruption by scoping outages to specific environments, instances, or users
+  - title: Developer first
+    details: Open source, permissively licensed, and supports multiple programming languages
 ---
