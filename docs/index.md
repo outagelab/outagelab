@@ -5,10 +5,9 @@ layout: home
 hero:
   name: OutageLab
   text: |
-    Simulate Outages,
-    Validate Impact,
-    Improve Resilience
-  tagline: A UI-driven platform providing remote error injection to test resilience and observability in live services
+    Resilience Testing
+    for Everyone
+  tagline: A UI-driven platform enabling remote-controlled outage simulation in any runtime environment
   actions:
     - theme: brand
       text: Learn more
