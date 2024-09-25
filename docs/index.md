@@ -6,8 +6,8 @@ hero:
   name: OutageLab
   text: |
     Resilience Testing
-    for Everyone
-  tagline: A UI-driven platform enabling remote-controlled outage simulation in any runtime environment
+    You Can Actually Use
+  tagline: A UI-driven platform enabling remote-controlled outage simulation anywhere your code runs
   actions:
     - theme: brand
       text: Learn more

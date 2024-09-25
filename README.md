@@ -1,28 +1,27 @@
-# OutageLab - resilience testing for everyone
+# OutageLab - Resilience testing you can actually use
 
-OutageLab is a UI-driven resilience testing platform enabling remote-controlled outage simulation in running applications.
+OutageLab is a UI-driven, application-embedded resilience testing platform enabling remote-controlled outage simulation anywhere your code runs.
 
-Other resilience/chaos testing tools are generally one or several of the following:
+> [!NOTE]
+> OutageLab is still in early development and considered experimental. Use only in low-risk environments.
 
-- Focused on infrastructure resilience with infrastructure specialists as the intended users
-- Limited to supporting specific kinds of hosting environments (only AWS, only Kubernetes, etc.)
-- Designed to scare people into good engineering by breaking things at random in production
-- Intended for automated integration testing of a single service in isolation
+## Focus
 
-OutageLab's focus is:
+- Resilience testing for software developers and QA testers, not infrastructure specialists
+- To run _anywhere_ your code does, without any platform-specific setup requirements
+- Manual testing in running apps, especially in prod-like environments, for usecases including:
+  - discovering single points of failure in full-stack apps and distributed systems
+  - debugging and acceptance testing resilience and observability enhancements
+- UI-driven and remote-controlled, enabling on-demand testing without hardcoding errors and deploying them
+- Safer, more controlled resilience/chaos testing - no random failure in production
 
-- To be easy for any developer, QA tester, and semi-technical PM to use
-- To enable end-to-end resilience testing in prod-like environments (prod **not** recommended)
-- To simulate outages on-demand for multiple use cases, including exploratory testing, debugging, acceptance testing, etc.
-- To support more workloads by running anywhere your code does, and to avoid reliance on infra teams to set up
-- To be incrementally adoptable by individual applications and teams
+## Setup
 
-## How it works
+A [5 minute quickstart](https://outagelab.com/docs/intro/quickstart/) can be found here.
 
-OutageLab uses an application-embedded agent that installs as a package, with support for multiple languages. These agents rely on a backend server that acts as a controller, and outage simulations are managed from a simple UI. This application-embedded approach makes it easy for any developer to set up and use anywhere, whether it be locally, in a container, on bare-metal, in a serverless function, a data pipeline - anywhere.
+TLDR on setup requirements:
 
-The backend server is open source and can be self-hosted, but to support accelerated adoption and experimentation, a managed service is available at [app.outagelab.com](https://app.outagelab.com/). This service will remain free for individuals, and if the project gets enough traction, a competitively priced paid tier for businesses may be created to support the project's development and hosting costs.
-
-## Get started
-
-[Learn more at outagelab.com](https://outagelab.com/)
+- Adding support for OutageLab in your application requires installing the `outagelab` library.
+- Supported languages currently include Python, Go, and Node.js. More to come.
+- The default recommended host for the UI / backend is [app.outagelab.com](https://app.outagelab.com). This is the fastest way to start, and is forever free for personal use and evaluation. Paid licenses for teams will be introduced if the tool gets traction, to help fund development and hosting.
+- You can optionally self-host the backend service, which is free and open source software.
