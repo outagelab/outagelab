@@ -45,16 +45,16 @@ export default defineConfig({
             text: "Quickstart",
             link: "/docs/intro/quickstart/",
           },
-          {
-            text: "Usecases",
-            link: "/docs/intro/usecases",
-          },
+          // {
+          //   text: "Usecases",
+          //   link: "/docs/intro/usecases",
+          // },
         ],
       },
-      {
-        text: "Features",
-        items: [{ text: "Outage Types", link: "/docs/features/outage-types" }],
-      },
+      // {
+      //   text: "Features",
+      //   items: [{ text: "Outage Types", link: "/docs/features/outage-types" }],
+      // },
       {
         text: "Reference",
         items: [
