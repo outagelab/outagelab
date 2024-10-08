@@ -15,11 +15,11 @@ At the current stage OutageLab only supports intercepting and modifying your app
 - Responding with a chosen HTTP failure status code
 - Adding latency to HTTP requests
 
-Additional failure modes
+Additional failure modes will continue to be added depending on user demand.
 
 ### Do I have to add code to my app?
 
-Only a line or two of code to configure and start it.
+Only a line or two of code to configure and start it. After that, all failure injection is automated and only needs to be configured in the UI.
 
 ### How does it compare to other reliability/chaos testing tools?
 
@@ -31,7 +31,6 @@ The majority of alternative options are hard for most devs to use, for reasons s
 - Focusing heavily on infrastructure problems and concepts, which makes them hard for devs to use
 - Integrating at the infrastructure level, which may require your infra team's support to set up
 - Having expensive pricing models requiring involved cost evaluations and contracts
--
 
 ### Am I ready for chaos testing? Isn't it risky?
 
