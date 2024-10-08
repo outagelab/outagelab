@@ -5,7 +5,7 @@ layout: home
 hero:
   name: OutageLab
   text: |
-    Resilience Testing
+    Reliability Testing
     You Can Actually Use
   tagline: A UI-driven platform enabling remote-controlled outage simulation anywhere your code runs
   actions:

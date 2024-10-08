@@ -4,4 +4,4 @@
 - Product/design acceptance testing
 - Observability training
 - Game days (incident response practice)
-- Make a case for resilience engineering
+- Make a case for reliability engineering

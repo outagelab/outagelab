@@ -1,9 +1,6 @@
 import { defineConfig } from "vitepress";
 import { tabsMarkdownPlugin } from "vitepress-plugin-tabs";
 
-// @ts-ignore
-const gaTagId = process.env.GA_TAG_ID;
-
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
   title: "OutageLab",
@@ -95,23 +92,4 @@ export default defineConfig({
       provider: "local",
     },
   },
-  head: gaTagId
-    ? [
-        [
-          "script",
-          {
-            async: "",
-            src: `https://www.googletagmanager.com/gtag/js?id=${gaTagId}`,
-          },
-        ],
-        [
-          "script",
-          {},
-          `window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', '${gaTagId}');`,
-        ],
-      ]
-    : [],
 });

@@ -1,25 +1,38 @@
 # What is OutageLab?
 
-OutageLab provides a UI for remotely injecting failure into running services. You describe how you want an application's HTTP dependencies to fail, and OutageLab makes it happen within seconds, no code changes or redeployment necessary.
+OutageLab is an open source reliability/chaos testing platform for software developers. It allows you to simulate application level issues such as failed or slow HTTP requests, and is managed remotely via a UI. You can experiment with failures interactively, without restarting or redeploying your application, and run tests absolutely anywhere your code runs.
 
-## How does it work?
+### Can I use it?
 
-OutageLab uses a basic client / server architecture.
+As long as you can install a library in your code, you can use OutageLab. Libraries are currently available for Go, Python, and Node.js, with more to come.
 
-The OutageLab server hosts the UI for configuring outage behaviors and an API allowing clients to fetch those configurations. You can choose from [managed hosting](https://app.outagelab.com), self hosting, or local hosting for the server.
+Note that OutageLab's technical approach involves a backend server that hosts the UI and client API, but self-hosting this is entirely optional. The default option is app.outagelab.com, a managed service with free personal accounts and reasonably priced team plans. The backend software is also open source and free to self-host for those interested.
 
-Client libraries are installed in application code and are available for several programming languages (with more to come). The client library installs HTTP interceptors that are capable of mocking responses to simulate failure or artificially add latency. These behaviors are driven by the configurations defined by users in the UI, which are fetched by the client in a background worker that runs every 30 seconds.
+### What kinds of failure can it simulate?
 
-![Architecture Diagram](../../assets/architecture.png)
+At the current stage OutageLab only supports intercepting and modifying your app's _outgoing_ HTTP requests, including:
 
-## Is OutageLab easy to set up?
+- Responding with a chosen HTTP failure status code
+- Adding latency to HTTP requests
 
-OutageLab aims to be the easiest tool of its kind for developers to get started with. Unlike most chaos testing tools, it has zero infrastructure-level requirements or setup. As long as you can install and import a library, you can use it - in the cloud, on-prem, serverless, anywhere.
+Additional failure modes
 
-The only pre-requisite to using OutageLab is choosing how to host the backend server. The easiest and recommended way to get started is to sign in to a free personal account at [app.outagelab.com](https://app.outagelab.com).
+### Do I have to add code to my app?
 
-Check out the [5 minute quickstart guide](./quickstart/) to learn more.
+Only a line or two of code to configure and start it.
 
-## Am I ready for chaos testing? Isn't it risky?
+### How does it compare to other reliability/chaos testing tools?
+
+OutageLab aims to be the easiest tool for software devs to adopt.
+
+The majority of alternative options are hard for most devs to use, for reasons such as:
+
+- Limitations in which platforms or environments they are compatible with
+- Focusing heavily on infrastructure problems and concepts, which makes them hard for devs to use
+- Integrating at the infrastructure level, which may require your infra team's support to set up
+- Having expensive pricing models requiring involved cost evaluations and contracts
+-
+
+### Am I ready for chaos testing? Isn't it risky?
 
 OutageLab shouldn't be compared with high stakes tools like Netflix's Chaos Monkey, which built a reputation for its approach of intentionally killing servers at random in production. In contrast, OutageLab's primary focus is on-demand failure simulation in non-production environments.

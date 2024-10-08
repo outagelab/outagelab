@@ -1,19 +1,19 @@
-# OutageLab - Resilience testing you can actually use
+# OutageLab - Reliability testing you can actually use
 
-OutageLab is a UI-driven, application-embedded resilience testing platform enabling remote-controlled outage simulation anywhere your code runs.
+OutageLab is a UI-driven, application-embedded reliability testing platform enabling remote-controlled outage simulation anywhere your code runs.
 
 > [!NOTE]
 > OutageLab is still in early development and considered experimental. Use only in low-risk environments.
 
 ## Focus
 
-- Resilience testing for software developers and QA testers, not infrastructure specialists
+- Reliability testing for software developers and QA testers, not infrastructure specialists
 - To run _anywhere_ your code does, without any platform-specific setup requirements
 - Manual testing in running apps, especially in prod-like environments, for usecases including:
   - discovering single points of failure in full-stack apps and distributed systems
-  - debugging and acceptance testing resilience and observability enhancements
+  - debugging and acceptance testing of reliability and observability enhancements
 - UI-driven and remote-controlled, enabling on-demand testing without hardcoding errors and deploying them
-- Safer, more controlled resilience/chaos testing - no random failure in production
+- Safer, more controlled reliability/chaos testing - no random failure in production
 
 ## Setup
 
