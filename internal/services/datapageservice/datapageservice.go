@@ -8,14 +8,14 @@ import (
 )
 
 type datapageService struct {
-	accountRepo accountRepo
-	apiKeyRepo  apiKeyRepo
+	accountService accountService
+	apiKeyRepo     apiKeyRepo
 }
 
-func New(accountRepo accountRepo, apiKeyRepo apiKeyRepo) *datapageService {
+func New(accountService accountService, apiKeyRepo apiKeyRepo) *datapageService {
 	return &datapageService{
-		accountRepo: accountRepo,
-		apiKeyRepo:  apiKeyRepo,
+		accountService: accountService,
+		apiKeyRepo:     apiKeyRepo,
 	}
 }
 
@@ -30,13 +30,15 @@ func (ds *datapageService) GenerateDatapage(ctx context.Context, apiKeyStr strin
 	}
 
 	// get account
-	account, err := ds.accountRepo.Get(ctx, apiKey.AccountID)
+	account, err := ds.accountService.GetAccount(ctx, apiKey.AccountID)
 	if err != nil {
 		return nil, err
 	}
 	if !isActiveKey(apiKey, account) {
 		return nil, nil
 	}
+
+	ds.registerDiscoveredComponents(ctx, account, request)
 
 	rules := []*OutageRule{}
 	for _, app := range account.Applications {
@@ -89,7 +91,7 @@ func (ds *datapageService) GenerateDatapageDeprecated(ctx context.Context, apiKe
 	}
 
 	// get account
-	account, err := ds.accountRepo.Get(ctx, apiKey.AccountID)
+	account, err := ds.accountService.GetAccount(ctx, apiKey.AccountID)
 	if err != nil {
 		return nil, err
 	}
@@ -108,4 +110,56 @@ func isActiveKey(apiKey *models.ApiKey, account *models.Account) bool {
 	}
 
 	return false
+}
+
+func (ds *datapageService) registerDiscoveredComponents(
+	ctx context.Context,
+	account *models.Account,
+	req *GenerateDatapageRequest,
+) (*models.Account, error) {
+	var needsUpdate bool
+
+	// check application
+	var app *models.Application
+	for _, a := range account.Applications {
+		if a.ID == req.Application {
+			app = a
+			break
+		}
+	}
+
+	if app == nil {
+		app = &models.Application{
+			ID:           req.Application,
+			Environments: []*models.Environment{},
+			Rules:        []*models.OutageRule{},
+		}
+		account.Applications = append(account.Applications, app)
+		needsUpdate = true
+	}
+
+	// check environment
+	var env *models.Environment
+	for _, e := range app.Environments {
+		if e.ID == req.Environment {
+			env = e
+			break
+		}
+	}
+
+	if env == nil {
+		env = &models.Environment{
+			ID:      req.Environment,
+			Enabled: false,
+		}
+		app.Environments = append(app.Environments, env)
+		needsUpdate = true
+	}
+
+	// update if needed
+	if !needsUpdate {
+		return account, nil
+	}
+
+	return ds.accountService.UpdateAccount(ctx, account.ID, account)
 }

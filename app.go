@@ -37,7 +37,7 @@ func NewApp(options *AppOptions) *OutageLabApp {
 	userRepo := userrepo.New(db)
 
 	accountService := accountservice.New(accountRepo, apiKeyRepo)
-	datapageService := datapageservice.New(accountRepo, apiKeyRepo)
+	datapageService := datapageservice.New(accountService, apiKeyRepo)
 	userService := userservice.New(userRepo)
 	authService := authservice.New(userService, accountService)
 
