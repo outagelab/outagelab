@@ -1,7 +1,7 @@
 .PHONY: test docs
 
 run:
-	go run cmd/api/main.go
+	go run cmd/cli/main.go
 
 dev:
 	cd ui && yarn dev
