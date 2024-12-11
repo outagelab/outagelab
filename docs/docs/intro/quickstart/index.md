@@ -62,11 +62,10 @@ Client libraries are currently available in Go, Python, and Node.js. Select your
 ## Initiate a simulated outage from the UI {#step-3}
 
 - Start your application, either locally or hosted
-- Go to [the Applications page](https://app.outagelab.com/applications) in OutageLab and click **Add**.
-- Enter the name of your application, which should match the value you configured your app with. If you didn't change it from the code example, it will be `my-service`.
+- Go to [the Applications page](https://app.outagelab.com/applications) in OutageLab.
+- You should see the name of your running application on this page. If not, your app may be misconfigured or isn't running. Check your app logs for error details.
 - Click **Edit** on the new application to open the configuration page.
-- Next to **Environments** click **Add**.
-- Enter the name of your environment, which should match the value you configured your app with. If you didn't change it from the code example, it will be `local`.
+- Toggle on the environment you are targeting.
 - Next to **Outage Rules** click **Add**.
 - This will generate a rule for controlling client HTTP requests sent by your app (not HTTP endpoints served by your app). This is the only supported outage type (for now).
 - Enter a value in the **Host** field matching the host DNS name of the server that you want to break requests to.

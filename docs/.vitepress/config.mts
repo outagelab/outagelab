@@ -22,7 +22,7 @@ export default defineConfig({
       {
         component: "NavButton",
         props: {
-          text: "Go to App",
+          text: "Login",
           theme: "brand",
           href: "https://app.outagelab.com",
           rel: "sponsored",

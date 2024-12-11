@@ -5,16 +5,17 @@ layout: home
 hero:
   name: OutageLab
   text: |
-    Reliability Testing
-    You Can Actually Use
-  tagline: A UI-driven platform enabling remote-controlled outage simulation anywhere your code runs
+    Outage Simulation.
+    Installs as a Package.
+    Remotely Controlled.
+  tagline: Simulate outage conditions anywhere your code runs, and get started in minutes.
   actions:
     - theme: brand
-      text: Learn more
-      link: /docs/intro
+      text: Get Started
+      link: https://app.outagelab.com
     - theme: alt
-      text: Quickstart
-      link: /docs/intro/quickstart
+      text: Learn More
+      link: /docs/intro
 
 features:
   - title: Move fast and break things
@@ -22,5 +23,5 @@ features:
   - title: Controlled chaos
     details: Avoid business disruption by scoping outages to specific environments, instances, or users
   - title: Developer first
-    details: Open source, permissively licensed, with support for multiple programming languages
+    details: Open source, permissively licensed, and supports multiple programming languages
 ---
