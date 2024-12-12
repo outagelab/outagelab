@@ -13,7 +13,14 @@ const applications = computed((): Application[] | undefined => {
 })
 
 function addApplication() {
-  applications.value?.push({ id: window.prompt("Application Name"), environments: [], rules: [] })
+  let applicationName: string|null = ""
+  while (applicationName === "") {
+    applicationName = window.prompt("Application Name")
+  }
+  if (!applicationName) {
+    return
+  }
+  applications.value?.push({ id: applicationName, environments: [], rules: [] })
   accountService.updateAccount(account.value!)
 }
 

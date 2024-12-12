@@ -12,7 +12,7 @@ go get github.com/outagelab/go-sdk
 import "github.com/outagelab/go-sdk/outagelab"
 
 func initOutageLab() {
-    outagelab.NewClient(outagelab.Options{
+    outagelab.Start(outagelab.Options{
 		Application: "my-service",
 		Environment: "local",
 		ApiKey:      os.Getenv("OUTAGELAB_API_KEY"),

@@ -3,8 +3,11 @@
 run:
 	go run cmd/cli/main.go
 
-dev:
+dev-ui:
 	cd ui && yarn dev
+
+dev:
+	npx concurrently --kill-others "make docs" "make run" "make dev-ui"
 
 docs:
 	cd docs && yarn && yarn dev
