@@ -9,6 +9,13 @@ import 'vuetify/styles'
 import { createVuetify } from 'vuetify'
 import * as components from 'vuetify/components'
 import * as directives from 'vuetify/directives'
+import { VStepperVertical, VStepperVerticalItem } from 'vuetify/labs/VStepperVertical'
+
+import { aliases, mdi } from 'vuetify/iconsets/mdi'
+import '@mdi/font/css/materialdesignicons.css'
+
+// Custom
+import Highlight from '@/directives/Highlight'
 
 import vue3GoogleLogin from 'vue3-google-login'
 
@@ -21,10 +28,21 @@ app.use(vue3GoogleLogin, {
 // TODO: installs everything without tree shaking, see docs to optimize
 app.use(
   createVuetify({
-    components,
-    directives,
-    theme: {
-      //   defaultTheme: 'dark'
+    components: {
+      ...components,
+      VStepperVertical,
+      VStepperVerticalItem
+    },
+    directives: {
+      ...directives,
+      Highlight
+    },
+    icons: {
+      defaultSet: 'mdi',
+      aliases,
+      sets: {
+        mdi
+      }
     }
   })
 )

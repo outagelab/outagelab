@@ -1,7 +1,9 @@
 <script setup lang="ts">
-import { ref, computed, watch } from 'vue'
+import { ref, computed, watch, onErrorCaptured } from 'vue'
 import { RouterView } from 'vue-router'
-import AccountService from './services/AccountService';
+import AccountService, { ApiAuthErrror } from './services/AccountService';
+import logoImg from "@/assets/images/Logo.png"
+
 
 const apiService = new AccountService()
 
@@ -17,48 +19,60 @@ const tokenExpired = computed((): boolean => {
 })
 
 const callback = async (response) => {
-  token.value = await apiService.login(response.credential)
+    token.value = await apiService.login(response.credential)
 }
+
+onErrorCaptured((error) => {
+  if (error.constructor === ApiAuthErrror) {
+    token.value = ""
+    return false // stop error propagation
+  }
+})
 </script>
 
 <template>
   <v-app>
     <template v-if="tokenExpired">
-      <v-container class="fill-height d-flex justify-center mb-10" fluid>
-        <div class="mb-10">
-          <v-row class="mb-16">
-            <v-col class="d-flex justify-center">
-              <h1 class="text-h1">OutageLab</h1>
-            </v-col>
-          </v-row>
-          <v-row>
-            <v-col class="d-flex justify-center">
-              <h2 class="text-h4">Sign in</h2>
-            </v-col>
-          </v-row>
-          <v-row class="mb-10">
-            <v-col class="d-flex justify-center">
-              <GoogleLogin :callback="callback" popup-type="TOKEN" />
-            </v-col>
-          </v-row>
-        </div>
-      </v-container>
+      <v-main>
+        <v-overlay :model-value="true" :persistent="true" class="fill-height d-flex justify-center align-center mb-10">
+          <v-container>
+            <v-sheet elevation="6" rounded="xl" min-width="750px">
+              <v-banner elevation="6" class="rounded-t-xl pb-7">
+                <v-row>
+                <v-col class="d-flex justify-center flex-column align-center">
+                    <h1 class="text-h1 kanit-light mb-5">OutageLab</h1>
+                    <img :src="logoImg" width="170px"/>
+                </v-col>
+              </v-row>
+              </v-banner>
+              <v-row class="mt-6">
+                <v-col class="d-flex justify-center">
+                  <h2 class="text-h4">Sign in</h2>
+                </v-col>
+              </v-row>
+              <v-row class="pt-1 pb-4">
+                <v-col class="d-flex justify-center">
+                  <GoogleLogin :callback="callback" popup-type="TOKEN" />
+                </v-col>
+              </v-row>
+            </v-sheet>
+          </v-container>
+        </v-overlay>
+      </v-main>
     </template>
     <template v-else>
-      <v-navigation-drawer :width="289">
-        <v-list-item>
-          <h1 class="a-10 text-h4 ma-3">OutageLab</h1>
-        </v-list-item>
-        <v-divider></v-divider>
-        <v-list-item link to="/applications">
-          <h4>Applications</h4>
-        </v-list-item>
-        <v-list-item link to="/api-keys">
-          <h4>API Keys</h4>
-        </v-list-item>
+      <v-navigation-drawer :width="235" permanent class="bg-grey-lighten-5">
+        <v-banner density="compact" elevation="2" class="py-2" height="64px">
+          <span class="mr-2 kanit-light" style="font-size: 28px">OutageLab</span>
+          <img :src="logoImg" width="50px"/>
+        </v-banner>
+        <v-list-item link to="/applications" title="Applications" prepend-icon="mdi-application-brackets"/>
+        <v-list-item link to="/api-keys" title="API Keys" prepend-icon="mdi-key-chain-variant" />
       </v-navigation-drawer>
       <v-main>
-        <v-container> <RouterView /></v-container>
+        <v-container fluid>
+          <RouterView />
+        </v-container>
       </v-main>
     </template>
   </v-app>

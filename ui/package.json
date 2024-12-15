@@ -15,10 +15,12 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
+    "@mdi/font": "^7.4.47",
+    "prismjs": "^1.29.0",
     "vue": "^3.4.21",
     "vue-router": "^4.3.0",
     "vue3-google-login": "^2.0.26",
-    "vuetify": "^3.6.7"
+    "vuetify": "^3.7.5"
   },
   "devDependencies": {
     "@playwright/test": "^1.43.0",

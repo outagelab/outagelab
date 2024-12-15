@@ -1,14 +1,23 @@
 import type { Account } from '@/models/Account'
 
+export class ApiAuthErrror extends Error {}
+
 export default class AccountService {
   async getAccount(): Promise<Account> {
-    const account = await fetch(`/api/account`, {
+    const response = await fetch(`/api/account`, {
       headers: {
         Authorization: `Bearer ${localStorage.token}`
       }
-    }).then((x) => x.json())
+    })
 
-    return account as Account
+    if (!response.ok) {
+      // TODO: handle other error types
+      throw new ApiAuthErrror()
+    }
+
+    const account = (await response.json()) as Account
+
+    return account
   }
 
   async updateAccount(account: Account) {

@@ -7,7 +7,7 @@ dev-ui:
 	cd ui && yarn dev
 
 dev:
-	npx concurrently --kill-others "make docs" "make run" "make dev-ui"
+	nv -- npx concurrently --kill-others "make docs" "make run" "make dev-ui"
 
 docs:
 	cd docs && yarn && yarn dev

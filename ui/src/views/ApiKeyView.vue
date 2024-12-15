@@ -19,9 +19,9 @@ async function refreshPage() {
 </script>
 
 <template>
-  <div class="d-flex align-center">
-    <h1>API Keys</h1>
-  </div>
+  <v-app-bar elevation="2">
+      <v-app-bar-title text="API Keys" class="text-h5" />
+  </v-app-bar>
 
   <v-row class="mt-1">
     <v-data-table
