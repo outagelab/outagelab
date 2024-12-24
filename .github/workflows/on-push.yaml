@@ -5,4 +5,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - run: docker build .
+      - run: docker build . -t ci-test
+      - run: |
+          rm -rf ./ui/dist
+          docker cp $(docker create ci-test):/app/dist ./ui/dist
+
+          if [[ $(git status --porcelain) ]]; then
+            echo "Uncommitted changes detected"
+            git status --porcelain
+            exit 1
+          fi
