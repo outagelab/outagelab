@@ -5,8 +5,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - run: docker build . -t ci-test
-      - run: |
+
+      - name: Build Docker image
+        run: docker build . -t ci-test
+
+      - name: Check for ui/dist changes
+        run: |
           rm -rf ./ui/dist
           docker cp $(docker create ci-test):/app/dist ./ui/dist
 
