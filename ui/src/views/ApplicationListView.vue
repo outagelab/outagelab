@@ -3,6 +3,7 @@ import type { Application, Account } from '@/models/Account'
 import AccountService from '@/services/AccountService'
 import { onBeforeMount, ref, computed } from 'vue'
 import router from '@/router'
+import ApplicationSetup from '@/components/ApplicationSetup.vue'
 
 const accountService = new AccountService()
 
@@ -11,18 +12,6 @@ let account = ref<Account>()
 const applications = computed((): Application[] | undefined => {
   return account.value?.applications
 })
-
-function addApplication() {
-  let applicationName: string|null = ""
-  while (applicationName === "") {
-    applicationName = window.prompt("Application Name")
-  }
-  if (!applicationName) {
-    return
-  }
-  applications.value?.push({ id: applicationName, environments: [], rules: [] })
-  accountService.updateAccount(account.value!)
-}
 
 onBeforeMount(refreshPage)
 
@@ -38,44 +27,101 @@ const appLiveEnvs = computed((): { [x: string]: string[] } => {
   return result
 })
 
+const showDialog = ref(false)
 
 </script>
 
 <template>
-  <div class="d-flex align-center ga-3">
-    <h1>Applications</h1>
-    <v-btn size="small" @click="addApplication">Add</v-btn>
-  </div>
-  <v-row class="mt-1">
-    <v-data-table
-      :items="applications"
-      hide-default-header
-      hide-default-footer
-      id="applications"
-      :headers="[
-        { key: 'id', width: '5%' },
-        { key: 'environments', width: '25%' },
-        { key: 'edit', width: '25%' }
-      ]"
-      density="compact"
-    >
-      <template v-slot:item.id="props">
-        <div>{{ props.item.id }}</div>
+  <v-app-bar flat border="b">
+    <v-app-bar-title text="Applications" class="text-h5" />
+    <template #append>
+        <v-btn
+          variant="flat"
+          color="primary"
+          class="mr-3"
+          append-icon="mdi-plus-circle"
+          @click="showDialog = true"
+          :disabled="!account"
+        >
+          Add
+        </v-btn>
       </template>
-
-      <template v-slot:item.environments="props">
-        <template v-if="appLiveEnvs[props.item.id]?.length">
-          Live in {{ appLiveEnvs[props.item.id]?.length }} environment<template
-            v-if="appLiveEnvs[props.item.id]?.length != 1"
-            >s</template
-          >
-        </template>
+  </v-app-bar>
+  <v-dialog v-model="showDialog" max-width="800px" overflowed>
+    <template #default="{ isActive }">
+      <v-card>
+        <v-card-title class="text-h5">Application Setup</v-card-title>
+        <v-divider></v-divider>
+        <v-card-text class="ma-n4 ml-n7">
+          <ApplicationSetup :initial-apps="applications!" :api-key="account!.apiKeys[0]!.key" @close="isActive.value = false"/>
+        </v-card-text>
+      </v-card>
+    </template>
+  </v-dialog>
+  <v-row>
+    <v-col>
+      <template v-if="account?.applications?.length === 0">
+        <v-card
+          title="Welcome to OutageLab!"
+          text="Let's get started by adding OutageLab to one of your applications. Within minutes you'll be running your first outage experiment. Click the button below to begin."
+          max-width="700px"
+          elevation="2"
+        >
+          <template #actions>
+            <v-btn
+              variant="flat"
+              color="primary"
+              append-icon="mdi-rocket-launch"
+              size="small"
+              class="ml-2 mb-1"
+              @click="showDialog = true"
+            >
+              Let's go!
+            </v-btn>
+          </template>
+        </v-card>
       </template>
-
-      <template v-slot:item.edit="props">
-        <v-btn size="small" @click="() => router.push(`/applications/${props.item.id}`)">Edit</v-btn>      </template>
-    </v-data-table>
+      <v-sheet elevation="2" rounded v-else>
+        <v-data-table
+          :items="applications"
+          :loading="!account"
+          hide-default-footer
+          hover
+          id="applications"
+          :headers="[
+            { title: 'Name', key: 'id', width: '5%' },
+            { title: 'Experiments', key: 'experiments', width: '25%' },
+          ]"
+          density="compact"
+        >
+          <template #headers>
+            <v-data-table-headers
+              color="primary"
+              sticky
+              :header-props="{
+                class: 'bg-grey-lighten-3 font-weight-bold',
+              }"
+            />
+          </template>
+          <template #item="{ item }">
+            <v-data-table-row :item="item" @click="router.push(`/applications/details/${item.id}`)">
+              <template #item.id>
+                <div>{{ item.id }}</div>
+              </template>
+              <template #item.experiments>
+                <span v-if="appLiveEnvs[item.id]?.length">
+                  <v-icon icon="mdi-circle" class="mr-1" color="green"></v-icon>
+                  Active in {{ appLiveEnvs[item.id]?.length }} environment{{ appLiveEnvs[item.id]?.length !== 1 ? "s" : ""}}
+                </span>
+                <span v-else>
+                  <v-icon icon="mdi-circle-outline" class="mr-1" color="grey"></v-icon>
+                  <span>Inactive</span>
+                </span>
+              </template>
+            </v-data-table-row>
+          </template>
+        </v-data-table>
+      </v-sheet>
+    </v-col>
   </v-row>
 </template>
-
-<style scoped></style>

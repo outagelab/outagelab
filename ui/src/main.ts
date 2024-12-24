@@ -9,6 +9,17 @@ import 'vuetify/styles'
 import { createVuetify } from 'vuetify'
 import * as components from 'vuetify/components'
 import * as directives from 'vuetify/directives'
+import { VStepperVertical, VStepperVerticalItem } from 'vuetify/labs/VStepperVertical'
+
+import { aliases, mdi } from 'vuetify/iconsets/mdi'
+import '@mdi/font/css/materialdesignicons.css'
+
+// Prism
+import 'prismjs/themes/prism.css'
+import 'prismjs/components/prism-bash'
+import 'prismjs/components/prism-go'
+import 'prismjs/components/prism-javascript'
+import 'prismjs/components/prism-python'
 
 import vue3GoogleLogin from 'vue3-google-login'
 
@@ -21,10 +32,20 @@ app.use(vue3GoogleLogin, {
 // TODO: installs everything without tree shaking, see docs to optimize
 app.use(
   createVuetify({
-    components,
-    directives,
-    theme: {
-      //   defaultTheme: 'dark'
+    components: {
+      ...components,
+      VStepperVertical,
+      VStepperVerticalItem
+    },
+    directives: {
+      ...directives
+    },
+    icons: {
+      defaultSet: 'mdi',
+      aliases,
+      sets: {
+        mdi
+      }
     }
   })
 )

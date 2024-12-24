@@ -16,7 +16,7 @@ const router = createRouter({
       component: ApplicationListView
     },
     {
-      path: '/applications/:id',
+      path: '/applications/details/:id',
       name: 'application-details',
       component: ApplicationDetailsView
     },

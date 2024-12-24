@@ -110,19 +110,33 @@ const responseDelayFieldRules = [
 ]
 
 const form = ref<any>(null)
+
+const documentBody = document.body
 </script>
 
 <template>
-  <div class="d-flex align-center">
-    <h1>{{ application?.id }}</h1>
-    <v-btn @click="updatePage" class="ml-auto" color="primary" :disabled="!dirty">Update</v-btn>
-  </div>
-  <v-form ref="form">
-    <div class="d-flex align-center ga-3 mt-8">
-      <h2>Environments</h2>
-      <v-btn size="small" @click="addEnvironment()">Add</v-btn>
-    </div>
-    <v-row class="mt-1">
+  <v-app-bar flat border="b">
+    <v-app-bar-title class="text-h5">
+      Applications / {{ application?.id }}
+    </v-app-bar-title>
+    <template #append>
+        <v-btn
+          @click="updatePage"
+          :disabled="!dirty"
+          class="mr-3"
+          color="primary"
+          variant="flat"
+          prepend-icon="mdi-content-save"
+        >
+          Save Changes
+        </v-btn>
+      </template>
+  </v-app-bar>
+  <v-sheet elevation="2" rounded class="pa-5">
+    <v-form ref="form">
+      <div class="d-flex align-center">
+        <h2>Environments</h2>
+      </div>
       <v-data-table
         :items="environments"
         hide-default-header
@@ -132,78 +146,84 @@ const form = ref<any>(null)
         density="compact"
       >
         <template v-slot:item.id="props">
-          <div>{{ props.item.id }}</div>
+          <div class="mx-n3 text-body-1">{{ props.item.id }}</div>
         </template>
         <template v-slot:item.enabled="props">
           <v-switch
-            :label="props.item.enabled ? 'Live' : 'Disabled'"
+            :label="props.item.enabled ? 'Active' : 'Inactive'"
             v-model="props.item.enabled"
             color="primary"
           />
         </template>
+        <template #no-data></template>
       </v-data-table>
-    </v-row>
 
-    <div class="d-flex align-center ga-3 mt-12">
-      <h2>Outage Rules</h2>
-      <v-btn size="small" @click="() => rules?.push({ type: 'send-http', enabled: true })">Add</v-btn>
-    </div>
-    <v-row class="mt-1">
-      <v-data-table
-        :items="rules"
-        hide-default-header
-        hide-default-footer
-        id="outagerules"
-        :headers="headers"
-      >
-        <template v-slot:item.enabled="props">
-          <v-switch v-model="props.item.enabled" color="primary" />
-        </template>
-        <template v-slot:item.type="props">
-          {{
-            {
-              'send-http': 'HTTP Client Requests'
-            }[props.item.type]
-          }}
-        </template>
-        <template v-slot:item.host="props">
-          <v-text-field
-            label="Request Host"
-            variant="underlined"
-            v-model="props.item.host"
-            required
-            :rules="hostFieldRules"
-          />
-        </template>
-        <template v-slot:item.status="props">
-          <v-text-field
-            label="Set Error Status"
-            variant="underlined"
-            type="number"
-            v-model.number="props.item.status"
-            :rules="responseStatusFieldRules"
-          />
-        </template>
-        <template v-slot:item.duration="props">
-          <v-text-field
-            label="Add Latency (Seconds)"
-            variant="underlined"
-            type="number"
-            v-model.number="props.item.duration"
-            :rules="responseDelayFieldRules"
-          />
-        </template>
-        <template v-slot:item.delete="props">
-          <v-btn size="small" @click="() => rules?.splice(props.index, 1)">Delete</v-btn>
-        </template>
-      </v-data-table>
-    </v-row>
-  </v-form>
-  <v-snackbar v-model="showConfirmation" :top="true" color="green">
+      <div class="d-flex align-center ga-3 mt-12">
+        <h2>Experiments</h2>
+        <v-btn size="small" color="primary" append-icon="mdi-plus-circle" @click="() => rules?.push({ type: 'send-http', enabled: true })">Add</v-btn>
+      </div>
+      <v-row class="mt-1">
+        <v-data-table
+          :items="rules"
+          hide-default-header
+          hide-default-footer
+          id="outagerules"
+          :headers="headers"
+        >
+          <template v-slot:item.enabled="props">
+            <v-switch v-model="props.item.enabled" color="primary" />
+          </template>
+          <template v-slot:item.type="props">
+            {{
+              {
+                'send-http': 'For HTTP Client Requests'
+              }[props.item.type]
+            }}
+          </template>
+          <template v-slot:item.host="props">
+            <v-text-field
+              label="With Request Host"
+              variant="underlined"
+              v-model="props.item.host"
+              required
+              :rules="hostFieldRules"
+            />
+          </template>
+          <template v-slot:item.status="props">
+            <v-text-field
+              label="Set Error Status"
+              variant="underlined"
+              type="number"
+              v-model.number="props.item.status"
+              :rules="responseStatusFieldRules"
+            />
+          </template>
+          <template v-slot:item.duration="props">
+            <v-text-field
+              label="Add Latency (Seconds)"
+              variant="underlined"
+              type="number"
+              v-model.number="props.item.duration"
+              :rules="responseDelayFieldRules"
+            />
+          </template>
+          <template v-slot:item.delete="props">
+            <v-btn @click="() => rules?.splice(props.index, 1)" color="red-lighten-2">
+              <v-icon icon="mdi-delete" />
+            </v-btn>
+          </template>
+          <template #no-data>
+            <div class="no-data"></div>
+          </template>
+        </v-data-table>
+      </v-row>
+    </v-form>
+  </v-sheet>
+  <v-snackbar v-model="showConfirmation" location="top right" color="green">
     <h4>Changes saved</h4>
-    Allow up to 30 seconds for changes to take effect
+    Changes will take effect in applications within 5 seconds
   </v-snackbar>
-  <v-snackbar v-model="showError" :top="true" color="red">
+  <v-snackbar v-model="showError" :target="documentBody" location="top right" color="red">
     <template v-if="showError == 'validation'">
       <h4>Validation error</h4>
       Resolve validation errors and try again
