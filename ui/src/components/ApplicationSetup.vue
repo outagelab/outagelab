@@ -105,7 +105,7 @@ useInterval(() => {
         <template #title>
             <span class="text-h7">Run and verify</span>
         </template>
-        <div>Once your application is running and connected successfully, it will appear here</div>
+        <div>Once your application is running and connected successfully, it will appear here.</div>
         <v-card v-if="newApps?.length" class="mt-4" elevation="3" width="400px">
             <v-card-title class="text-h7">
                 Applications Discovered
