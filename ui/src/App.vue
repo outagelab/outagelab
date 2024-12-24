@@ -18,7 +18,7 @@ const tokenExpired = computed((): boolean => {
   return !exp || new Date(exp * 1000) < new Date()
 })
 
-const callback = async (response) => {
+const callback = async (response: any) => {
     token.value = await apiService.login(response.credential)
 }
 

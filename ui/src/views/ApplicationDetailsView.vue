@@ -134,7 +134,7 @@ const documentBody = document.body
   </v-app-bar>
   <v-sheet elevation="2" rounded class="pa-5">
     <v-form ref="form">
-      <div class="d-flex align-center ga-3">
+      <div class="d-flex align-center">
         <h2>Environments</h2>
       </div>
       <v-data-table
@@ -146,7 +146,7 @@ const documentBody = document.body
         density="compact"
       >
         <template v-slot:item.id="props">
-          <div>{{ props.item.id }}</div>
+          <div class="mx-n3 text-body-1">{{ props.item.id }}</div>
         </template>
         <template v-slot:item.enabled="props">
           <v-switch

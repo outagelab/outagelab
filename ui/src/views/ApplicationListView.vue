@@ -15,8 +15,7 @@ const applications = computed((): Application[] | undefined => {
 
 onBeforeMount(refreshPage)
 
-async function refreshPage(x) {
-  console.log(x)
+async function refreshPage() {
   account.value = await accountService.getAccount()
 }
 
@@ -50,7 +49,13 @@ const showDialog = ref(false)
   </v-app-bar>
   <v-dialog v-model="showDialog" max-width="800px" overflowed>
     <template #default="{ isActive }">
-      <ApplicationSetup :initial-apps="applications!" :api-key="account!.apiKeys[0]!.key" @close="isActive.value = false"/>
+      <v-card>
+        <v-card-title class="text-h5">Application Setup</v-card-title>
+        <v-divider></v-divider>
+        <v-card-text class="ma-n4 ml-n7">
+          <ApplicationSetup :initial-apps="applications!" :api-key="account!.apiKeys[0]!.key" @close="isActive.value = false"/>
+        </v-card-text>
+      </v-card>
     </template>
   </v-dialog>
   <v-row>
@@ -58,7 +63,7 @@ const showDialog = ref(false)
       <template v-if="account?.applications?.length === 0">
         <v-card
           title="Welcome to OutageLab!"
-          text="Let's get started by adding OutageLab to one of your applications. Once it's successfuly set up, your application will automatically display on this page, where you can open it and introduce your first outage simulation!"
+          text="Let's get started by adding OutageLab to one of your applications. Within minutes you'll be running your first outage experiment. Click the button below to begin."
           max-width="700px"
           elevation="2"
         >

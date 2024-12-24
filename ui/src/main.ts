@@ -14,8 +14,12 @@ import { VStepperVertical, VStepperVerticalItem } from 'vuetify/labs/VStepperVer
 import { aliases, mdi } from 'vuetify/iconsets/mdi'
 import '@mdi/font/css/materialdesignicons.css'
 
-// Custom
-import Highlight from '@/directives/Highlight'
+// Prism
+import 'prismjs/themes/prism.css'
+import 'prismjs/components/prism-bash'
+import 'prismjs/components/prism-go'
+import 'prismjs/components/prism-javascript'
+import 'prismjs/components/prism-python'
 
 import vue3GoogleLogin from 'vue3-google-login'
 
@@ -34,8 +38,7 @@ app.use(
       VStepperVerticalItem
     },
     directives: {
-      ...directives,
-      Highlight
+      ...directives
     },
     icons: {
       defaultSet: 'mdi',

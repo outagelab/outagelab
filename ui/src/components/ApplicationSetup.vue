@@ -14,7 +14,7 @@ const { apiKey, initialApps } = defineProps<{
 }>()
 
 const newApps = ref<Application[]>()
-let tab = ref<string|null>("go")
+let tab = ref<string>("go")
 
 useInterval(async () => {
     const account = await accountService.getAccount()
@@ -30,7 +30,7 @@ useInterval(() => {
 </script>
 
 <template>
-<v-stepper-vertical hide-actions multiple :model-value="[0, 1, 2, 3]">
+<v-stepper-vertical hide-actions multiple :model-value="[0, 1, 2, 3]" flat>
     <v-stepper-vertical-item value="1" class="pt-2">
         <template #title>
             <span class="text-h7">Install the package</span>
@@ -38,9 +38,9 @@ useInterval(() => {
         <CodeSampler
             v-model="tab"
             :tabs="[
-                { label: 'Go', value: 'go', lang: 'sh' },
-                { label: 'Node.js', value: 'nodejs', lang: 'sh' },
-                { label: 'Python', value: 'python', lang: 'sh' }
+                { label: 'Go', value: 'go', lang: 'bash' },
+                { label: 'Node.js', value: 'nodejs', lang: 'bash' },
+                { label: 'Python', value: 'python', lang: 'bash' }
             ]"
         >
             <template #go>

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { defineProps, onUpdated, defineModel, useTemplateRef } from 'vue'
+import { defineProps, defineModel } from 'vue'
 import Prism from 'prismjs'
 
 let { tabs } = defineProps<{
