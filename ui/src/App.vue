@@ -2,7 +2,7 @@
 import { ref, computed, watch, onErrorCaptured } from 'vue'
 import { RouterView } from 'vue-router'
 import AccountService, { ApiAuthErrror } from './services/AccountService';
-import logoImg from "@/assets/images/Logo.png"
+import logoImg from "@/assets/images/Logo.svg"
 
 
 const apiService = new AccountService()
@@ -37,13 +37,13 @@ onErrorCaptured((error) => {
         <v-overlay :model-value="true" :persistent="true" class="fill-height d-flex justify-center align-center mb-10">
           <v-container>
             <v-sheet elevation="6" rounded="xl" min-width="750px">
-              <v-banner elevation="6" class="rounded-t-xl pb-7">
+              <v-banner elevation="1" class="rounded-t-xl pb-7">
                 <v-row>
-                <v-col class="d-flex justify-center flex-column align-center">
-                    <h1 class="text-h1 kanit-light mb-5">OutageLab</h1>
-                    <img :src="logoImg" width="170px"/>
-                </v-col>
-              </v-row>
+                  <v-col class="d-flex justify-center flex-column align-center">
+                      <h1 class="text-h1 kanit-light mb-5">OutageLab</h1>
+                      <logoImg width="170px"/>
+                  </v-col>
+                </v-row>
               </v-banner>
               <v-row class="mt-6">
                 <v-col class="d-flex justify-center">
@@ -61,16 +61,16 @@ onErrorCaptured((error) => {
       </v-main>
     </template>
     <template v-else>
-      <v-navigation-drawer :width="235" permanent class="bg-grey-lighten-5">
-        <v-banner density="compact" elevation="2" class="py-2" height="64px">
+      <v-navigation-drawer :width="235" permanent class="bg-grey-lighten-3" elevation="2">
+        <v-banner density="compact" class="d-flex justify-items py-2 bg-grey-lighten-3" height="65px" >
           <span class="mr-2 kanit-light" style="font-size: 28px">OutageLab</span>
-          <img :src="logoImg" width="50px"/>
+          <logoImg width="50px"/>
         </v-banner>
         <v-list-item link to="/applications" title="Applications" prepend-icon="mdi-application-brackets"/>
         <v-list-item link to="/api-keys" title="API Keys" prepend-icon="mdi-key-chain-variant" />
       </v-navigation-drawer>
       <v-main>
-        <v-container fluid>
+        <v-container class="ml-0 pa-6">
           <RouterView />
         </v-container>
       </v-main>

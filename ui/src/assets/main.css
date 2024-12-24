@@ -3,3 +3,19 @@
   font-weight: 300 !important ;
   font-style: normal  !important;
 }
+
+
+.text-h7 {
+  font-size: 1.15rem !important;
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: 0.0110em !important;
+  font-family: "Roboto", sans-serif;
+  text-transform: none !important;
+}
+
+
+.v-data-table-rows-no-data:has(.no-data) {
+  display: block;
+  height: 12px;
+}
