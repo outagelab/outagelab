@@ -5,10 +5,9 @@ layout: home
 hero:
   name: OutageLab
   text: |
-    Outage Simulation.
-    Installs as a Package.
-    Remotely Controlled.
-  tagline: Simulate outage conditions anywhere your code runs, and get started in minutes.
+    Failure is Inevitable.
+    Chaos is Controllable.
+  tagline: Put reliability in the dev loop with chaos testing thats easy, safe, and effective for developers
   actions:
     - theme: brand
       text: Get Started
@@ -18,10 +17,10 @@ hero:
       link: /docs/intro
 
 features:
-  - title: Move fast and break things
-    details: Easy to get started with, installs in code as a package and has no infrastructure requirements
-  - title: Controlled chaos
-    details: Avoid business disruption by scoping outages to specific environments, instances, or users
-  - title: Developer first
-    details: Open source, permissively licensed, and supports multiple programming languages
+  - title: Developer Focus
+    details: Simulate common application-level issues, like failing and slow HTTP requests
+  - title: Run Anywhere
+    details: Installs in code as a package, supports multiple languages, with no infrastructure requirements
+  - title: Low Risk
+    details: Scope outages to individual users and lower environments for non-disruptive testing
 ---
