@@ -20,7 +20,7 @@ features:
   - title: Developer Focus
     details: Simulate common application-level issues, like failing and slow HTTP requests
   - title: Run Anywhere
-    details: Installs in code as a package, supports multiple languages, with no infrastructure requirements
+    details: Installs in code as a package, supports multiple programming languages, and has no infrastructure requirements or setup
   - title: Low Risk
     details: Scope outages to individual users and lower environments for non-disruptive testing
 ---
